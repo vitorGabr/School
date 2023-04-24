@@ -7,7 +7,6 @@ import java.util.Arrays;
 public class RendimentoController {
     private boolean aprovado = false;
     private double media = 0;
-
     private Rendimento rendimento;
 
     public RendimentoController(Rendimento _rendRendimento){
