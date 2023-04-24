@@ -8,9 +8,6 @@ public class Rendimento {
     private double reposicao;
     private double exame;
 
-    private boolean aprovado;
-    private double media;
-
     public Rendimento(
             Aluno _aluno,
             Curso _curso,
