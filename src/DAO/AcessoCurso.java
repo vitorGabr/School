@@ -11,7 +11,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
-import Controllers.AlunoController;
 import Controllers.CursoController;
 import Entities.Curso;
 

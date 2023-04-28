@@ -62,9 +62,4 @@ public class AlunoView {
         Scanner in = new Scanner(System.in);
         return in.nextLine().trim();
     }
-
-    public AlunoController getController() {
-        return alunoController;
-    }
-
 }

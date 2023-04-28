@@ -1,5 +1,10 @@
 package Entities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 public class Curso {
 
     private String id;
@@ -9,8 +14,8 @@ public class Curso {
 
     public Curso(String _nome, String _nivel, int _ano) {
         this.ano = _ano;
-        this.nivel = _nivel;
         this.nome = _nome;
+        this.ano = _ano;
         this.id = String.valueOf(_ano) + _nivel + _nome;
     }
 
