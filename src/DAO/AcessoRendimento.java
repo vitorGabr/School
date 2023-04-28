@@ -11,19 +11,19 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
-import Controllers.CursoController;
-import Entities.Curso;
+import Controllers.RendimentoController;
+import Entities.Rendimento;
 
-public class AcessoCurso {
+public class AcessoRendimento {
     private String filePath;
-    private CursoController cursoController;
+    private RendimentoController rendiController;
 
-    public AcessoCurso(String aFilePath, CursoController cursoController) {
-        this.cursoController = cursoController;
+    public AcessoRendimento(String aFilePath, RendimentoController rendiController) {
+        this.rendiController = rendiController;
         this.filePath = aFilePath;
     }
 
-    public void loadCurso() {
+    public void loadPatos() {
         try (InputStream is = new FileInputStream(filePath);
                 InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(isr);) {
@@ -32,12 +32,15 @@ public class AcessoCurso {
 
                 String[] palavras = linha.split(";");
 
-                String nome = palavras[0];
-                String nivel = palavras[1];
-                int ano = Integer.parseInt(palavras[1]);
+                String aluno_id = palavras[0];
+                String curso_id = palavras[1];
+                double np1 = Double.parseDouble(palavras[2]);
+                double np2 = Double.parseDouble(palavras[3]);
+                double reposicao = Double.parseDouble(palavras[4]);
+                double exame = Double.parseDouble(palavras[5]);
 
-                Curso curso = new Curso(nome, nivel, ano);
-                cursoController.addCurso(curso);
+                Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
+                rendiController.addRendimento(rendimento);
             }
 
         } catch (IOException e) {
@@ -51,8 +54,8 @@ public class AcessoCurso {
         try (OutputStream os = new FileOutputStream(filePath/* , true */);
                 OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                 PrintWriter pw = new PrintWriter(osw, true);) {
-            for (Curso p : cursoController.getCursos()) {
-                pw.println(p.getId() + "," + p.getNivel());
+            for (Rendimento p : rendiController.getRendimentos()) {
+                pw.println(p.getId() + "," + p.getNp1());
             }
 
         } catch (IOException e) {

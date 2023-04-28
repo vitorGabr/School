@@ -23,7 +23,7 @@ public class AcessoAluno {
         this.filePath = aFilePath;
     }
 
-    public void loadPatos() {
+    public void loadAluno() {
         try (InputStream is = new FileInputStream(filePath);
                 InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(isr);) {

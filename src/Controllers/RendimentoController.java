@@ -2,18 +2,32 @@ package Controllers;
 
 import Entities.Rendimento;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class RendimentoController {
-    private List<Rendimento> rendimentos = new ArrayList<>();
+    private Map<String, Rendimento> rendimentos = new TreeMap<>();
 
-    public void addRendimentos(Rendimento rendimento) {
-        this.rendimentos.add(rendimento);
+    public Map<String, Rendimento> getRendimentosById() {
+        return this.rendimentos;
     }
 
-    public List<Rendimento> getRendimentos() {
-        return this.rendimentos;
+    public boolean addRendimento(Rendimento rendimento) {
+        if (rendimentos.containsKey(rendimento.getId())) {
+            return false;
+        }
+        this.rendimentos.put(rendimento.getId(), rendimento);
+
+        return true;
+    }
+
+    public Collection<Rendimento> getRendimentos() {
+        return this.rendimentos.values();
+    }
+
+    public Rendimento getRendimentoById(String id) {
+        return rendimentos.get(id);
     }
 
 
