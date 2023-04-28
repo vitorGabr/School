@@ -1,15 +1,13 @@
 package Entities;
 
-import Enums.Nivel;
-
 public class Curso {
 
     private String id;
     private String nome;
-    private Nivel nivel;
+    private String nivel;
     private int ano;
 
-    public Curso(String _nome, Nivel _nivel, int _ano) {
+    public Curso(String _nome, String _nivel, int _ano) {
         this.ano = _ano;
         this.nivel = _nivel;
         this.nome = _nome;
@@ -28,11 +26,11 @@ public class Curso {
         this.nome = nome;
     }
 
-    public Nivel getNivel() {
+    public String getNivel() {
         return nivel;
     }
 
-    public void setNivel(Nivel nivel) {
+    public void setNivel(String nivel) {
         this.nivel = nivel;
     }
 

@@ -1,18 +1,20 @@
 package Controllers;
 
 import Entities.Rendimento;
-import Enums.Nivel;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RendimentoController {
-    private List<Rendimento> rendimentos;
+    private List<Rendimento> rendimentos = new ArrayList<>();
 
-    public RendimentoController(List<Rendimento> _rendimentos) {
-        this.rendimentos = _rendimentos;
+    public void addRendimentos(Rendimento rendimento) {
+        this.rendimentos.add(rendimento);
     }
 
+    public List<Rendimento> getRendimentos() {
+        return this.rendimentos;
+    }
 
 
 }

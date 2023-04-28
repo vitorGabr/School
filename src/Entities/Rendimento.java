@@ -2,9 +2,8 @@ package Entities;
 
 import java.util.Arrays;
 
-import Enums.Nivel;
-
 public class Rendimento {
+
     private String aluno_id;
     private String curso_id;
     private double np1;
@@ -83,7 +82,7 @@ public class Rendimento {
             this.reposicao = min;
         }
         this.media = Arrays.stream(nps).sum() / nps.length;
-        this.aprovado = _curso.getNivel() == Nivel.GRADUACAO ? this.media >= 7 : this.media >= 5;
+        this.aprovado = _curso.getNivel() == "GRADUAÇÃO" ? this.media >= 7 : this.media >= 5;
         double finalMedia = (this.exame + this.media / 2);
         if (finalMedia > 5) {
             this.media = finalMedia;

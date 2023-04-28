@@ -10,50 +10,55 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
-import Controllers.AlunoController;
-import Entities.Aluno;
+import Entities.Curso;
 
-public class AcessoAluno {
-    private String filePath;
-    private AlunoController alunoController;
+public class AcessoCurso {
+    public static List<Curso> loadCurso(String filePath) {
 
-    public AcessoAluno(String aFilePath, AlunoController alunoController) {
-        this.alunoController = alunoController;
-        this.filePath = aFilePath;
-    }
+        List<Curso> cursos = new ArrayList<>();
 
-    public void loadPatos() {
         try (InputStream is = new FileInputStream(filePath);
                 InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(isr);) {
             String linha;
+            int i = 0;
             while ((linha = br.readLine()) != null) {
 
-                String[] palavras = linha.split(";");
+                System.out.println("linha " + i++);
 
-                String id = palavras[0];
-                String nome = palavras[1];
-                System.out.println(id);
-                System.out.println(nome);
+                String[] palavras = linha.split(",");
 
-                Aluno aluno = new Aluno(id, nome);
-                alunoController.addAluno(aluno);
+                for (String p : palavras) {
+                    System.out.println("palavra: " + p);
+                }
+
+                String nome = palavras[0];
+                String nivel = palavras[1];
+                int ano = Integer.parseInt(palavras[2]);
+
+                Curso curso = new Curso(nome, nivel, ano);
+                cursos.add(curso);
+
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return cursos;
+
     }
 
-    public void saveAlunos() {
+    public static void saveAlunos(List<Curso> cursos, String filePath) {
 
         try (OutputStream os = new FileOutputStream(filePath/* , true */);
                 OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                 PrintWriter pw = new PrintWriter(osw, true);) {
-            for (Aluno p : alunoController.getAlunos()) {
-                pw.println(p.getId() + "," + p.getName());
+            for (Curso aluno : cursos) {
+                pw.println(aluno.getId());
             }
 
         } catch (IOException e) {
@@ -61,4 +66,5 @@ public class AcessoAluno {
         }
 
     }
+
 }
