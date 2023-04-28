@@ -34,6 +34,7 @@ public class AcessoCurso {
 
                 String nome = palavras[0];
                 String nivel = palavras[1];
+
                 int ano = Integer.parseInt(palavras[2]);
 
                 Curso curso = new Curso(nome, nivel, ano);

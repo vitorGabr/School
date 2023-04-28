@@ -13,9 +13,11 @@ public class Curso {
     private int ano;
 
     public Curso(String _nome, String _nivel, int _ano) {
+        verificaNivel(_nivel);
+        verificaAno(_ano);
         this.ano = _ano;
         this.nome = _nome;
-        this.ano = _ano;
+        this.nivel = _nivel;
         this.id = String.valueOf(_ano) + _nivel + _nome;
     }
 
@@ -35,9 +37,6 @@ public class Curso {
         return nivel;
     }
 
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
-    }
 
     public int getAno() {
         return ano;
@@ -45,6 +44,19 @@ public class Curso {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    private void verificaNivel(String _nivel) {
+        if (!(_nivel.equals("GRADUACAO") || _nivel.equals("POS_GRADUACAO"))) {
+            throw new NoSuchElementException("Você precisa digitar um valor válido para o nível !!!");
+        }
+    }
+
+    private void verificaAno(int _ano) {
+        int _anoLength = Integer.toString(_ano).length();
+        if ((_anoLength != 2 || _anoLength != 4) && (ano < 0 || ano > 9999)) {
+            throw new IllegalArgumentException("Ano inválido. o valor tem que ser um ano válido!!!");
+        }
     }
 
     @Override

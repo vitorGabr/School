@@ -45,24 +45,27 @@ public class CursoView {
     }
 
     private Curso entrarCurso() {
-        String nome = entraNome();
-        String nivel = entraNivel();
-        if (!verificaNivel(nivel)) {
-            System.out.println("Você precisa digitar um valor válido para o nível!!! ");
-            return null;
+        try {
+            String nome = entraNome();
+            String nivel = entraNivel();
+            int ano = entraAno();
+
+            String id = nome + nivel + ano;
+
+            Curso temCurso = cursoController.getCursoById(id);
+            if (temCurso != null) {
+                System.out.println("Já temos um curso cadastrado !!!");
+                System.out.println(temCurso);
+                return null;
+            }
+
+            return new Curso(nome, nivel, ano);
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
-        int ano = entraAno();
-
-        String id = nome + nivel + ano;
-
-        Curso temCurso = cursoController.getCursoById(id);
-        if (temCurso != null) {
-            System.out.println("Já temos um curso cadastrado !!!");
-            System.out.println(temCurso);
-            return null;
-        }
-
-        return new Curso(nome, nivel, ano);
+        return null;
     }
 
     private List<Curso> listarCursosByAno() {
