@@ -9,8 +9,8 @@ public class AlunoView {
 
     private AlunoController alunoController;
 
-    public AlunoView() {
-        this.alunoController = new AlunoController();
+    public AlunoView(AlunoController controller) {
+        this.alunoController = controller;
     }
 
     public void adicionarAluno() {

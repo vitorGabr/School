@@ -3,22 +3,32 @@ package Views;
 import java.util.Scanner;
 
 import Controllers.AlunoController;
+import Controllers.CursoController;
 import DAO.AcessoAluno;
+import DAO.AcessoCurso;
 
 public class View {
 
     AcessoAluno acessoAlunos;
-    AlunoController alunoController;
+    AcessoCurso acessoCursos;
+    private AlunoController alunoController;
+    private CursoController cursoController;
 
     private AlunoView alunoView;
+    private CursoView cursoView;
 
     public View() {
+        alunoController = new AlunoController();
+        cursoController = new CursoController();
+        acessoCursos = new AcessoCurso("files/cursos.csv", cursoController);
         acessoAlunos = new AcessoAluno("files/alunos.csv", alunoController);
-        alunoView = new AlunoView();
+        alunoView = new AlunoView(alunoController);
+        cursoView = new CursoView(cursoController);
     }
 
     public void init() {
         acessoAlunos.loadAluno();
+        acessoCursos.loadCurso();
         options();
     }
 
@@ -29,6 +39,18 @@ public class View {
             switch (opcao) {
                 case 1:
                     alunoView.adicionarAluno();
+                    break;
+                case 2:
+                    alunoView.listaTodosAlunos();
+                    break;
+                case 3:
+                    cursoView.adicionarCurso();
+                    break;
+                case 4:
+                    cursoView.listaTodosCursos();
+                    break;
+                case 5:
+                    cursoView.listarCusosByAno();
                     break;
                 case 0:
                     sair();
@@ -70,8 +92,9 @@ public class View {
 
     public void sair() {
         System.out.println("saindo do programa");
-        System.out.println("salvando patos");
+        System.out.println("salvando Alunos");
         acessoAlunos.saveAlunos();
+        acessoCursos.saveCurso();
     }
 
 }

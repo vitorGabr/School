@@ -3,8 +3,10 @@ package Controllers;
 import Entities.Curso;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class CursoController {
     private Map<String, Curso> cursos = new TreeMap<>();
@@ -28,6 +30,11 @@ public class CursoController {
 
     public Curso getCursoById(String id) {
         return cursos.get(id);
+    }
+
+    public List<Curso> getCursoByAno(int ano) {
+        return cursos.values().stream().filter(item -> item.getAno() == ano).collect(Collectors.toList());
+
     }
 
 }

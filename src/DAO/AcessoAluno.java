@@ -53,7 +53,7 @@ public class AcessoAluno {
                 OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                 PrintWriter pw = new PrintWriter(osw, true);) {
             for (Aluno p : alunoController.getAlunos()) {
-                pw.println(p.getId() + "," + p.getName());
+                pw.println(p.getId() + ";" + p.getName());
             }
 
         } catch (IOException e) {

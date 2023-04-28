@@ -42,4 +42,9 @@ public class Curso {
         this.ano = ano;
     }
 
+    @Override
+    public String toString() {
+        return nome + "," + nivel + "," + ano;
+    }
+
 }

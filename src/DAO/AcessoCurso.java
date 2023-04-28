@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+import Controllers.AlunoController;
 import Controllers.CursoController;
 import Entities.Curso;
 
@@ -18,8 +19,8 @@ public class AcessoCurso {
     private String filePath;
     private CursoController cursoController;
 
-    public AcessoCurso(String aFilePath, CursoController cursoController) {
-        this.cursoController = cursoController;
+    public AcessoCurso(String aFilePath, CursoController alunoController) {
+        this.cursoController = alunoController;
         this.filePath = aFilePath;
     }
 
@@ -34,7 +35,7 @@ public class AcessoCurso {
 
                 String nome = palavras[0];
                 String nivel = palavras[1];
-                int ano = Integer.parseInt(palavras[1]);
+                int ano = Integer.parseInt(palavras[2]);
 
                 Curso curso = new Curso(nome, nivel, ano);
                 cursoController.addCurso(curso);
@@ -52,7 +53,7 @@ public class AcessoCurso {
                 OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                 PrintWriter pw = new PrintWriter(osw, true);) {
             for (Curso p : cursoController.getCursos()) {
-                pw.println(p.getId() + "," + p.getNivel());
+                pw.println(p.getNome() + ";" + p.getNivel() + ";" + p.getAno());
             }
 
         } catch (IOException e) {

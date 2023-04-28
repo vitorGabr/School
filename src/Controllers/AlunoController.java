@@ -34,14 +34,14 @@ public class AlunoController {
 
     public List<Aluno> getAlunosByNome(String keyName) {
 
-        List<Aluno> patosByName = new ArrayList<>();
+        List<Aluno> alunosByName = new ArrayList<>();
 
         for (Aluno p : alunos.values()) {
             if (p.getName().toLowerCase().contains(keyName.toLowerCase())) {
-                patosByName.add(p);
+                alunosByName.add(p);
             }
         }
-        return patosByName;
+        return alunosByName;
     }
 
 }
