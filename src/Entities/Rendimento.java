@@ -21,8 +21,7 @@ public class Rendimento {
             double _np1,
             double _np2,
             double _reposicao,
-            double _exame
-    ){
+            double _exame) {
         this.aluno_id = _aluno_id;
         this.curso_id = _curso_id;
         this.exame = _exame;
@@ -35,6 +34,10 @@ public class Rendimento {
 
     public String getId() {
         return id;
+    }
+
+    public double getMedia() {
+        return media;
     }
 
     public double getExame() {

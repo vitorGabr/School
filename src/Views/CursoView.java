@@ -1,7 +1,5 @@
 package Views;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -42,6 +40,13 @@ public class CursoView {
         for (Curso p : _cursos) {
             System.out.println(p);
         }
+    }
+
+    public Curso listarCursoById() {
+        String nome = entraNome();
+        String nivel = entraNivel();
+        int ano = entraAno();
+        return cursoController.getCursoById(nome + nivel + ano);
     }
 
     private Curso entrarCurso() {
@@ -92,11 +97,6 @@ public class CursoView {
         System.out.println("Entre com o ano do curso");
         Scanner in = new Scanner(System.in);
         return Integer.parseInt(in.nextLine().trim());
-    }
-
-    private boolean verificaNivel(String _nivel) {
-        List<String> niveis = new ArrayList<>(Arrays.asList("GRADUACAO", "POS_GRADUACAO"));
-        return niveis.contains(_nivel);
     }
 
 }

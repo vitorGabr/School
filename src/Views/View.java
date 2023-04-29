@@ -4,26 +4,33 @@ import java.util.Scanner;
 
 import Controllers.AlunoController;
 import Controllers.CursoController;
+import Controllers.RendimentoController;
 import DAO.AcessoAluno;
 import DAO.AcessoCurso;
+import DAO.AcessoRendimento;
 
 public class View {
 
-    AcessoAluno acessoAlunos;
-    AcessoCurso acessoCursos;
+    private AcessoAluno acessoAlunos;
+    private AcessoCurso acessoCursos;
+    private AcessoRendimento acessoRendimento;
     private AlunoController alunoController;
     private CursoController cursoController;
+    private RendimentoController rendimentoController;
 
     private AlunoView alunoView;
     private CursoView cursoView;
+    private RendimentoView rendimentoView;
 
     public View() {
         alunoController = new AlunoController();
         cursoController = new CursoController();
+        rendimentoController = new RendimentoController();
         acessoCursos = new AcessoCurso("files/cursos.csv", cursoController);
         acessoAlunos = new AcessoAluno("files/alunos.csv", alunoController);
         alunoView = new AlunoView(alunoController);
         cursoView = new CursoView(cursoController);
+        rendimentoView = new RendimentoView(rendimentoController, alunoController, cursoController);
     }
 
     public void init() {
@@ -51,6 +58,9 @@ public class View {
                     break;
                 case 5:
                     cursoView.listarCusosByAno();
+                    break;
+                case 6:
+                    listarAlunosByCurso();
                     break;
                 case 0:
                     sair();
@@ -88,6 +98,10 @@ public class View {
             return getOpcao();
         }
 
+    }
+
+    public void listarAlunosByCurso() {
+        rendimentoView.listarRendimentosByCurso(this.cursoView.listarCursoById());
     }
 
     public void sair() {
