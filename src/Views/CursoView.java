@@ -46,7 +46,7 @@ public class CursoView {
         String nome = entraNome();
         String nivel = entraNivel();
         int ano = entraAno();
-        return cursoController.getCursoById(nome + nivel + ano);
+        return cursoController.getCursoById(nome + "_" + nivel + "_" + ano);
     }
 
     private Curso entrarCurso() {

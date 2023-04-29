@@ -8,6 +8,8 @@ import Controllers.RendimentoController;
 import DAO.AcessoAluno;
 import DAO.AcessoCurso;
 import DAO.AcessoRendimento;
+import Entities.Aluno;
+import Entities.Curso;
 
 public class View {
 
@@ -27,6 +29,7 @@ public class View {
         cursoController = new CursoController();
         rendimentoController = new RendimentoController();
         acessoCursos = new AcessoCurso("files/cursos.csv", cursoController);
+        acessoRendimento = new AcessoRendimento("files/ALPOO_GRADUACAO_2018.csv", rendimentoController);
         acessoAlunos = new AcessoAluno("files/alunos.csv", alunoController);
         alunoView = new AlunoView(alunoController);
         cursoView = new CursoView(cursoController);
@@ -36,6 +39,7 @@ public class View {
     public void init() {
         acessoAlunos.loadAluno();
         acessoCursos.loadCurso();
+        acessoRendimento.loadRendimentos();
         options();
     }
 
@@ -60,7 +64,13 @@ public class View {
                     cursoView.listarCusosByAno();
                     break;
                 case 6:
+                    rendimentoView.listarAlunoByRa();
+                    break;
+                case 7:
                     listarAlunosByCurso();
+                    break;
+                case 8:
+                    cadastrarRendimento();
                     break;
                 case 0:
                     sair();
@@ -101,7 +111,22 @@ public class View {
     }
 
     public void listarAlunosByCurso() {
-        rendimentoView.listarRendimentosByCurso(this.cursoView.listarCursoById());
+        Curso curso = this.cursoView.listarCursoById();
+        if (curso == null) {
+            System.out.println("Não existe curso cadastrado como esses valores");
+            return;
+        }
+        rendimentoView.listarRendimentosByCurso(curso);
+    }
+
+    public void cadastrarRendimento() {
+        Curso curso = this.cursoView.listarCursoById();
+        Aluno aluno = this.alunoView.listarAlunoById();
+        if (curso == null) {
+            System.out.println("Não existe curso cadastrado como esses valores");
+            return;
+        }
+        rendimentoView.adicionarRendimento(aluno.getId(), curso.getId());
     }
 
     public void sair() {

@@ -15,7 +15,7 @@ public class Curso {
         this.ano = _ano;
         this.nome = _nome;
         this.nivel = _nivel;
-        this.id = _nome + _nivel + String.valueOf(_ano);
+        this.id = _nome + "_" + _nivel + "_" + String.valueOf(_ano);
     }
 
     public String getId() {

@@ -33,6 +33,15 @@ public class AlunoView {
         }
     }
 
+    public Aluno listarAlunoById() {
+        String id = entraId();
+        Aluno temAluno = alunoController.getAlunoById(id);
+        if (temAluno == null) {
+            System.out.println("Não temos nenhum aluno cadastrado com esse RA!!!");
+            return null;
+        }
+        return temAluno;
+    }
 
     private Aluno entrarAluno() {
         String id = entraId();

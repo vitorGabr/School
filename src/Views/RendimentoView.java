@@ -24,16 +24,13 @@ public class RendimentoView {
         this.cursoController = _cursoController;
     }
 
-    public void adicionarRendimento() {
-        // Aluno aluno = entrarAluno();
-        // if (aluno == null) {
-        // return;
-        // }
-        // if (rendimentoController.addAluno(aluno)) {
-        // System.out.println("Adicionando Aluno " + aluno);
-        // } else {
-        // System.out.println("Falha ao adicionar aluno " + aluno);
-        // }
+    public void adicionarRendimento(String alunoRa, String cursoId) {
+        Rendimento rendimento = entrarRendimento(alunoRa, cursoId);
+        if (rendimentoController.addRendimento(rendimento)) {
+            System.out.println("Adicionando Rendimento " + rendimento);
+        } else {
+            System.out.println("Falha ao adicionar rendimento " + rendimento);
+        }
 
     }
 
@@ -70,28 +67,23 @@ public class RendimentoView {
                 return;
             }
             p.calcMedia(curso);
-            System.out.println(p);
+            System.out.println();
+            System.out.println("ALUNO: " + aluno.getName());
             System.out.println("------");
-            System.out.println(p.getAprovado() == true ? "PASSOU" : "NÃO PASSOU");
+            System.out.println("STATUS: " + (p.getAprovado() == true ? "PASSOU" : "NÃO PASSOU"));
             System.out.println("------");
             System.out.println("MÉDIA: " + p.getMedia());
         }
 
     }
 
-    private Aluno entrarAluno() {
-        // String id = entraId();
+    private Rendimento entrarRendimento(String alunoRa, String cursoId) {
+        double np1 = entraNP1();
+        double np2 = entraNP2();
+        double exame = entraExame();
+        double reposicao = entraReposicao();
 
-        // Aluno temAluno = rendimentoController.getAlunoById(id);
-        // if (temAluno != null) {
-        // System.out.println("Já temos um aluno com este id:");
-        // System.out.println(temAluno);
-        // return null;
-        // }
-
-        // String nome = entraNome();
-        // return new Aluno(id, nome);
-        return null;
+        return new Rendimento(alunoRa, cursoId, np1, np2, exame, reposicao);
     }
 
     public String entraRa() {
@@ -101,18 +93,6 @@ public class RendimentoView {
         String id = in.nextLine();
 
         return id.trim();
-    }
-
-    public String entraAlunoRa() {
-        System.out.println("Entre com o Ra do aluno");
-        Scanner in = new Scanner(System.in);
-        return in.nextLine().trim();
-    }
-
-    public String entraCursoId() {
-        System.out.println("Entre com o Id do curso");
-        Scanner in = new Scanner(System.in);
-        return in.nextLine().trim();
     }
 
     public double entraNP1() {

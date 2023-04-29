@@ -1,6 +1,7 @@
 package DAO;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,16 +29,17 @@ public class AcessoRendimento {
                 InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(isr);) {
             String linha;
+            File file = new File(filePath);
+            String cursoId = file.getName().replace(".csv", "");
             while ((linha = br.readLine()) != null) {
-
                 String[] palavras = linha.split(";");
 
                 String aluno_id = palavras[0];
-                String curso_id = palavras[1];
-                double np1 = Double.parseDouble(palavras[2]);
-                double np2 = Double.parseDouble(palavras[3]);
-                double reposicao = Double.parseDouble(palavras[4]);
-                double exame = Double.parseDouble(palavras[5]);
+                String curso_id = cursoId;
+                double np1 = Double.parseDouble(palavras[1]);
+                double np2 = Double.parseDouble(palavras[2]);
+                double reposicao = Double.parseDouble(palavras[3]);
+                double exame = Double.parseDouble(palavras[4]);
 
                 Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
                 rendiController.addRendimento(rendimento);
