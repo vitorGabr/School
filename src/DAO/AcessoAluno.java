@@ -17,12 +17,12 @@ public class AcessoAluno extends DAO {
     }
 
     public void loadAluno() {
-        Map<String, List<String>> palvrs = this.load();
-        for (List<String> palavras : palvrs.values()) {
-            if (palavras.size() > 0) {
-                String id = palavras.get(0) != null ? palavras.get(0) : "";
-                String nome = palavras.get(1) != null ? palavras.get(1) : "";
-
+        Map<String, List<String>> data = this.load();
+        for (List<String> lista : data.values()) {
+            for (String palavra : lista) {
+                String[] palavras = palavra.split(";");
+                String id = palavras[0] != null ? palavras[0] : "";
+                String nome = palavras[1] != null ? palavras[1] : "";
                 Aluno aluno = new Aluno(id, nome);
                 alunoController.addAluno(aluno);
             }

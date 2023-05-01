@@ -34,9 +34,11 @@ public abstract class DAO {
                     BufferedReader br = new BufferedReader(isr);) {
                 String linha;
                 File file = new File(path);
+                List<String> linhas = new ArrayList<>();
                 while ((linha = br.readLine()) != null) {
-                    lines.put(file.getName().replace(".csv", ""), Arrays.asList(linha.split(";")));
+                    linhas.add(linha);
                 }
+                lines.put(file.getName().replace(".csv", ""), linhas);
 
             } catch (IOException e) {
                 e.printStackTrace();

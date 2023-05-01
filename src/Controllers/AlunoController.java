@@ -16,6 +16,7 @@ public class AlunoController {
     }
 
     public boolean addAluno(Aluno aluno) {
+        System.out.println(aluno.getName());
         if (alunos.containsKey(aluno.getId())) {
             return false;
         }

@@ -23,16 +23,19 @@ public class AcessoRendimento extends DAO {
     public void loadRendimentos() {
         Map<String, List<String>> palvrs = this.load();
         for (String key : palvrs.keySet()) {
-            List<String> palavras = palvrs.get(key);
-            String aluno_id = palavras.get(0);
-            String curso_id = key;
-            double np1 = Double.parseDouble(palavras.get(1));
-            double np2 = Double.parseDouble(palavras.get(2));
-            double reposicao = Double.parseDouble(palavras.get(3));
-            double exame = Double.parseDouble(palavras.get(4));
+            List<String> lista = palvrs.get(key);
+            for (String palavra : lista) {
+                String[] palavras = palavra.split(";");
+                String aluno_id = palavras[0];
+                String curso_id = key;
+                double np1 = Double.parseDouble(palavras[1]);
+                double np2 = Double.parseDouble(palavras[2]);
+                double reposicao = Double.parseDouble(palavras[3]);
+                double exame = Double.parseDouble(palavras[4]);
 
-            Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
-            rendiController.addRendimento(rendimento);
+                Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
+                rendiController.addRendimento(rendimento);
+            }
         }
     }
 
@@ -45,6 +48,7 @@ public class AcessoRendimento extends DAO {
                     OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                     PrintWriter pw = new PrintWriter(osw, true);) {
                 for (Rendimento r : rendimento) {
+                    System.out.println(r.getAlunoId());
                     pw.println(r.getAlunoId() + ";" + r.getNp1() + ";" + r.getNp2() + ";" +
                             r.getReposicao() + ";"
                             + r.getExame());

@@ -17,15 +17,16 @@ public class AcessoCurso extends DAO {
     }
 
     public void loadCurso() {
-        Map<String, List<String>> palvrs = this.load();
-        for (List<String> palavras : palvrs.values()) {
-            String nome = palavras.get(0) != null ? palavras.get(0) : "";
-            String nivel = palavras.get(1) != null ? palavras.get(1) : "";
-
-            int ano = Integer.parseInt(palavras.get(2));
-
-            Curso curso = new Curso(nome, nivel, ano);
-            cursoController.addCurso(curso);
+        Map<String, List<String>> data = this.load();
+        for (List<String> lista : data.values()) {
+            for (String palavra : lista) {
+                String[] palavras = palavra.split(";");
+                String nome = palavras[0] != null ? palavras[0] : "";
+                String nivel = palavras[1] != null ? palavras[1] : "";
+                int ano = Integer.parseInt(palavras[2]);
+                Curso curso = new Curso(nome, nivel, ano);
+                cursoController.addCurso(curso);
+            }
         }
     }
 
