@@ -102,7 +102,7 @@ public class Rendimento {
 
     @Override
     public String toString() {
-        return np1 + "," + np2 + "," + reposicao + "," + exame;
+        return np1 + ";" + np2 + ";" + reposicao + ";" + exame;
     }
 
 }

@@ -1,68 +1,59 @@
 package DAO;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
 
 import Controllers.RendimentoController;
 import Entities.Rendimento;
 
-public class AcessoRendimento {
-    private String filePath;
+public class AcessoRendimento extends DAO {
     private RendimentoController rendiController;
 
-    public AcessoRendimento(String aFilePath, RendimentoController rendiController) {
+    public AcessoRendimento(List<String> aFilePath, RendimentoController rendiController) {
+        super(aFilePath);
         this.rendiController = rendiController;
-        this.filePath = aFilePath;
     }
 
     public void loadRendimentos() {
-        try (InputStream is = new FileInputStream(filePath);
-                InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-                BufferedReader br = new BufferedReader(isr);) {
-            String linha;
-            File file = new File(filePath);
-            String cursoId = file.getName().replace(".csv", "");
-            while ((linha = br.readLine()) != null) {
-                String[] palavras = linha.split(";");
+        Map<String, List<String>> palvrs = this.load();
+        for (String key : palvrs.keySet()) {
+            List<String> palavras = palvrs.get(key);
+            String aluno_id = palavras.get(0);
+            String curso_id = key;
+            double np1 = Double.parseDouble(palavras.get(1));
+            double np2 = Double.parseDouble(palavras.get(2));
+            double reposicao = Double.parseDouble(palavras.get(3));
+            double exame = Double.parseDouble(palavras.get(4));
 
-                String aluno_id = palavras[0];
-                String curso_id = cursoId;
-                double np1 = Double.parseDouble(palavras[1]);
-                double np2 = Double.parseDouble(palavras[2]);
-                double reposicao = Double.parseDouble(palavras[3]);
-                double exame = Double.parseDouble(palavras[4]);
+            Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
+            rendiController.addRendimento(rendimento);
+        }
+    }
 
-                Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
-                rendiController.addRendimento(rendimento);
+    public void saveRendimentos() {
+        Map<String, List<Rendimento>> rendimentos = rendiController.getRendimentos();
+        for (String p : rendimentos.keySet()) {
+            List<Rendimento> rendimento = rendimentos.get(p);
+            String path = "files/" + p + ".csv";
+            try (OutputStream os = new FileOutputStream(path/* , true */);
+                    OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
+                    PrintWriter pw = new PrintWriter(osw, true);) {
+                for (Rendimento r : rendimento) {
+                    pw.println(r.getAlunoId() + ";" + r.getNp1() + ";" + r.getNp2() + ";" +
+                            r.getReposicao() + ";"
+                            + r.getExame());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
 
-    public void saveCurso() {
-
-        try (OutputStream os = new FileOutputStream(filePath/* , true */);
-                OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-                PrintWriter pw = new PrintWriter(osw, true);) {
-            for (Rendimento p : rendiController.getRendimentos()) {
-                pw.println(p.getId() + "," + p.getNp1());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 }

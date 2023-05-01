@@ -57,7 +57,7 @@ public class Curso {
 
     @Override
     public String toString() {
-        return nome + "," + nivel + "," + ano;
+        return nome + ";" + nivel + ";" + ano;
     }
 
 }

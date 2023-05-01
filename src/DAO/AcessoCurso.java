@@ -1,64 +1,35 @@
 package DAO;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import Controllers.CursoController;
 import Entities.Curso;
 
-public class AcessoCurso {
-    private String filePath;
+public class AcessoCurso extends DAO {
     private CursoController cursoController;
 
     public AcessoCurso(String aFilePath, CursoController alunoController) {
+        super(new ArrayList<>(Arrays.asList(aFilePath)));
         this.cursoController = alunoController;
-        this.filePath = aFilePath;
     }
 
     public void loadCurso() {
-        try (InputStream is = new FileInputStream(filePath);
-                InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-                BufferedReader br = new BufferedReader(isr);) {
-            String linha;
-            while ((linha = br.readLine()) != null) {
+        Map<String, List<String>> palvrs = this.load();
+        for (List<String> palavras : palvrs.values()) {
+            String nome = palavras.get(0) != null ? palavras.get(0) : "";
+            String nivel = palavras.get(1) != null ? palavras.get(1) : "";
 
-                String[] palavras = linha.split(";");
+            int ano = Integer.parseInt(palavras.get(2));
 
-                String nome = palavras[0];
-                String nivel = palavras[1];
-
-                int ano = Integer.parseInt(palavras[2]);
-
-                Curso curso = new Curso(nome, nivel, ano);
-                cursoController.addCurso(curso);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            Curso curso = new Curso(nome, nivel, ano);
+            cursoController.addCurso(curso);
         }
-
     }
 
     public void saveCurso() {
-
-        try (OutputStream os = new FileOutputStream(filePath/* , true */);
-                OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-                PrintWriter pw = new PrintWriter(osw, true);) {
-            for (Curso p : cursoController.getCursos()) {
-                pw.println(p.getNome() + ";" + p.getNivel() + ";" + p.getAno());
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        this.save(cursoController.getCursos());
     }
 }

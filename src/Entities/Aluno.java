@@ -5,7 +5,7 @@ public class Aluno {
     private String id;
     private String name;
 
-    public Aluno(String _id,String _name) {
+    public Aluno(String _id, String _name) {
         this.id = _id;
         this.name = _name;
     }
@@ -28,7 +28,7 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return id + "," + name;
+        return id + ";" + name;
     }
 
 }

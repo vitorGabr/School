@@ -1,5 +1,7 @@
 package Views;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import Controllers.AlunoController;
@@ -29,7 +31,9 @@ public class View {
         cursoController = new CursoController();
         rendimentoController = new RendimentoController();
         acessoCursos = new AcessoCurso("files/cursos.csv", cursoController);
-        acessoRendimento = new AcessoRendimento("files/ALPOO_GRADUACAO_2018.csv", rendimentoController);
+        acessoRendimento = new AcessoRendimento(new ArrayList<>(
+                Arrays.asList("files/ALPOO_GRADUACAO_2018.csv")),
+                rendimentoController);
         acessoAlunos = new AcessoAluno("files/alunos.csv", alunoController);
         alunoView = new AlunoView(alunoController);
         cursoView = new CursoView(cursoController);
@@ -130,10 +134,13 @@ public class View {
     }
 
     public void sair() {
-        System.out.println("saindo do programa");
-        System.out.println("salvando Alunos");
+        System.out.println("\nSaindo do programa");
+        System.out.println("Salvando Alunos");
+        System.out.println("Salvando Curso");
+        System.out.println("Salvando Rendimentos\n");
         acessoAlunos.saveAlunos();
         acessoCursos.saveCurso();
+        acessoRendimento.saveRendimentos();
     }
 
 }

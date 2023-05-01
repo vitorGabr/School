@@ -26,12 +26,7 @@ public class RendimentoView {
 
     public void adicionarRendimento(String alunoRa, String cursoId) {
         Rendimento rendimento = entrarRendimento(alunoRa, cursoId);
-        if (rendimentoController.addRendimento(rendimento)) {
-            System.out.println("Adicionando Rendimento " + rendimento);
-        } else {
-            System.out.println("Falha ao adicionar rendimento " + rendimento);
-        }
-
+        rendimentoController.addRendimento(rendimento);
     }
 
     public void listarAlunoByRa() {
