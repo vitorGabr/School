@@ -1,11 +1,9 @@
 package Entities;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 public class Rendimento {
 
-    private String id;
     private String aluno_id;
     private String curso_id;
     private double np1;
@@ -24,16 +22,12 @@ public class Rendimento {
             double _exame) {
         this.aluno_id = _aluno_id;
         this.curso_id = _curso_id;
-        this.exame = _exame;
         this.np1 = _np1;
+        this.np2 = _np2;
+        this.exame = _exame;
         this.reposicao = _reposicao;
         this.media = 0;
         this.aprovado = false;
-        this.id = UUID.randomUUID().toString();
-    }
-
-    public String getId() {
-        return id;
     }
 
     public double getMedia() {

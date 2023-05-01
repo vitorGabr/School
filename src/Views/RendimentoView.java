@@ -77,7 +77,7 @@ public class RendimentoView {
         double np2 = entraNP2();
         double exame = entraExame();
         double reposicao = entraReposicao();
-
+        System.out.println(alunoRa + "," + cursoId + "," + np1 + "," + np2 + "," + exame + "," + reposicao);
         return new Rendimento(alunoRa, cursoId, np1, np2, exame, reposicao);
     }
 
@@ -93,6 +93,7 @@ public class RendimentoView {
     public double entraNP1() {
         System.out.println("Entre com a nota da NP1");
         Scanner in = new Scanner(System.in);
+        String valor = in.nextLine().trim();
         return Double.parseDouble(in.nextLine().trim());
     }
 
