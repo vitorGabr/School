@@ -11,6 +11,7 @@ import java.util.Map;
 
 import Controllers.RendimentoController;
 import Entities.Rendimento;
+import Enums.NivelCurso;
 
 public class AcessoRendimento extends DAO {
     private RendimentoController rendiController;
@@ -28,12 +29,13 @@ public class AcessoRendimento extends DAO {
                 String[] palavras = palavra.split(";");
                 String aluno_id = palavras[0];
                 String curso_id = key;
+                NivelCurso nivel = NivelCurso.fromString(key.contains("POS_GRADUACAO") ? "POS_GRADUACAO" : "GRADUACAO");
                 double np1 = Double.parseDouble(palavras[1]);
                 double np2 = Double.parseDouble(palavras[2]);
                 double reposicao = Double.parseDouble(palavras[3]);
                 double exame = Double.parseDouble(palavras[4]);
 
-                Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame);
+                Rendimento rendimento = new Rendimento(aluno_id, curso_id, np1, np2, reposicao, exame, nivel);
                 rendiController.addRendimento(rendimento);
             }
         }
@@ -48,7 +50,6 @@ public class AcessoRendimento extends DAO {
                     OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                     PrintWriter pw = new PrintWriter(osw, true);) {
                 for (Rendimento r : rendimento) {
-                    System.out.println(r.getAlunoId());
                     pw.println(r.getAlunoId() + ";" + r.getNp1() + ";" + r.getNp2() + ";" +
                             r.getReposicao() + ";"
                             + r.getExame());

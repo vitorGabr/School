@@ -7,6 +7,7 @@ import java.util.Map;
 
 import Controllers.CursoController;
 import Entities.Curso;
+import Enums.NivelCurso;
 
 public class AcessoCurso extends DAO {
     private CursoController cursoController;
@@ -22,7 +23,7 @@ public class AcessoCurso extends DAO {
             for (String palavra : lista) {
                 String[] palavras = palavra.split(";");
                 String nome = palavras[0] != null ? palavras[0] : "";
-                String nivel = palavras[1] != null ? palavras[1] : "";
+                NivelCurso nivel = NivelCurso.fromString(palavras[1] != null ? palavras[1] : "");
                 int ano = Integer.parseInt(palavras[2]);
                 Curso curso = new Curso(nome, nivel, ano);
                 cursoController.addCurso(curso);

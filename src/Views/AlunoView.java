@@ -1,13 +1,13 @@
 package Views;
 
-import java.util.Scanner;
-
 import Controllers.AlunoController;
 import Entities.Aluno;
+import Utils.LeitorDeDados;
 
 public class AlunoView {
 
     private AlunoController alunoController;
+    private LeitorDeDados leitor = new LeitorDeDados();
 
     public AlunoView(AlunoController controller) {
         this.alunoController = controller;
@@ -34,7 +34,7 @@ public class AlunoView {
     }
 
     public Aluno listarAlunoById() {
-        String id = entraId();
+        String id = leitor.lerString("Entre com o Id do aluno: ");
         Aluno temAluno = alunoController.getAlunoById(id);
         if (temAluno == null) {
             System.out.println("Não temos nenhum aluno cadastrado com esse RA!!!");
@@ -44,7 +44,7 @@ public class AlunoView {
     }
 
     private Aluno entrarAluno() {
-        String id = entraId();
+        String id = leitor.lerString("Entre com o Id do aluno: ");
 
         Aluno temAluno = alunoController.getAlunoById(id);
         if (temAluno != null) {
@@ -53,22 +53,8 @@ public class AlunoView {
             return null;
         }
 
-        String nome = entraNome();
+        String nome = leitor.lerString("Entre com o Nome do aluno: ");
         return new Aluno(id, nome);
     }
 
-    public String entraId() {
-        System.out.println("Entre com o Id do aluno");
-        Scanner in = new Scanner(System.in);
-
-        String id = in.nextLine();
-
-        return id.trim();
-    }
-
-    public String entraNome() {
-        System.out.println("Entre com o nome do aluno");
-        Scanner in = new Scanner(System.in);
-        return in.nextLine().trim();
-    }
 }

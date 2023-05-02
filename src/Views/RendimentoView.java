@@ -1,6 +1,6 @@
 package Views;
 
-import java.util.Scanner;
+import java.util.List;
 
 import Controllers.AlunoController;
 import Controllers.CursoController;
@@ -8,12 +8,15 @@ import Controllers.RendimentoController;
 import Entities.Aluno;
 import Entities.Curso;
 import Entities.Rendimento;
+import Utils.LeitorDeDados;
 
 public class RendimentoView {
 
     private RendimentoController rendimentoController;
     private AlunoController alunoController;
     private CursoController cursoController;
+
+    private LeitorDeDados leitor = new LeitorDeDados();
 
     public RendimentoView(
             RendimentoController _rendimentoController,
@@ -26,92 +29,51 @@ public class RendimentoView {
 
     public void adicionarRendimento(String alunoRa, String cursoId) {
         Rendimento rendimento = entrarRendimento(alunoRa, cursoId);
+        System.out.println("Adicionado rendimento: ");
+        System.out.println(rendimento);
         rendimentoController.addRendimento(rendimento);
     }
 
     public void listarAlunoByRa() {
-        String _ra = entraRa();
+        String _ra = leitor.lerString("Entre com o Ra do aluno");
         if (this.alunoController.getAlunoById(_ra) == null) {
             System.out.println("Não existe nenhum aluno cadastro com esse RA!!!");
             return;
         }
-        System.out.println("Listando o aluno:");
-        System.out.println();
+        System.out.println("Listando o aluno: ");
         System.out.println(_ra);
-        for (Rendimento p : rendimentoController.getRendimentosByAlunoId(_ra)) {
-            Curso curso = cursoController.getCursoById(p.getCursoId());
-            if (curso == null) {
-                System.out.println("Não existe nenhum curso cadastro com esse ID!!!");
-                return;
-            }
-            p.calcMedia(curso);
-            System.out.println(p);
-            System.out.println("------");
-            System.out.println(p.getAprovado() == true ? "PASSOU" : "NÃO PASSOU");
-            System.out.println("------");
-            System.out.println("MÉDIA: " + p.getMedia());
-        }
+        mostrarStatusAluno(rendimentoController.getRendimentosByAlunoId(_ra));
     }
 
     public void listarRendimentosByCurso(Curso curso) {
-        System.out.println("Listando cada aluno que cursou essa matéria:");
-        for (Rendimento p : rendimentoController.getRendimentosByCursoId(curso.getId())) {
-            Aluno aluno = alunoController.getAlunoById(p.getAlunoId());
-            if (aluno == null) {
-                System.out.println("Não existe nenhum aluno cadastro com esse RA!!!");
-                return;
-            }
-            p.calcMedia(curso);
-            System.out.println();
-            System.out.println("ALUNO: " + aluno.getName());
-            System.out.println("------");
-            System.out.println("STATUS: " + (p.getAprovado() == true ? "PASSOU" : "NÃO PASSOU"));
-            System.out.println("------");
-            System.out.println("MÉDIA: " + p.getMedia());
-        }
-
+        System.out.println("Listando cada aluno que cursou essa matéria: ");
+        mostrarStatusAluno(rendimentoController.getRendimentosByCursoId(curso.getId()));
     }
 
     private Rendimento entrarRendimento(String alunoRa, String cursoId) {
-        double np1 = entraNP1();
-        double np2 = entraNP2();
-        double exame = entraExame();
-        double reposicao = entraReposicao();
-        System.out.println(alunoRa + "," + cursoId + "," + np1 + "," + np2 + "," + exame + "," + reposicao);
-        return new Rendimento(alunoRa, cursoId, np1, np2, exame, reposicao);
+        double np1 = leitor.lerDouble("Entre com a nota da NP1: ");
+        double np2 = leitor.lerDouble("Entre com a nota da NP2: ");
+        double exame = leitor.lerDouble("Entre com a nota do Exame: ");
+        double reposicao = leitor.lerDouble("Entre com a nota da Reposição: ");
+
+        Curso curso = this.cursoController.getCursoById(cursoId);
+
+        return new Rendimento(alunoRa, cursoId, np1, np2, exame, reposicao, curso.getNivel());
     }
 
-    public String entraRa() {
-        System.out.println("Entre com o Ra do aluno");
-        Scanner in = new Scanner(System.in);
+    private void mostrarStatusAluno(List<Rendimento> rendimentos) {
+        for (Rendimento rendimento : rendimentos) {
 
-        String id = in.nextLine();
+            Aluno aluno = alunoController.getAlunoById(rendimento.getAlunoId());
 
-        return id.trim();
+            System.out.println("------------------");
+            System.out.println("ALUNO: " + aluno.getName());
+            System.out.println("------");
+            System.out.println("STATUS: " + (rendimento.getAprovado() == true ? "PASSOU" : "NÃO PASSOU"));
+            System.out.println("------");
+            System.out.println("MÉDIA: " + rendimento.getMedia());
+            System.out.println("------------------");
+        }
     }
 
-    public double entraNP1() {
-        System.out.println("Entre com a nota da NP1");
-        Scanner in = new Scanner(System.in);
-        String valor = in.nextLine().trim();
-        return Double.parseDouble(in.nextLine().trim());
-    }
-
-    public double entraNP2() {
-        System.out.println("Entre com a nota da NP2");
-        Scanner in = new Scanner(System.in);
-        return Double.parseDouble(in.nextLine().trim());
-    }
-
-    public double entraReposicao() {
-        System.out.println("Entre com a nota da reposição");
-        Scanner in = new Scanner(System.in);
-        return Double.parseDouble(in.nextLine().trim());
-    }
-
-    public double entraExame() {
-        System.out.println("Entre com a nota do exame");
-        Scanner in = new Scanner(System.in);
-        return Double.parseDouble(in.nextLine().trim());
-    }
 }

@@ -2,14 +2,16 @@ package Views;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import Controllers.CursoController;
 import Entities.Curso;
+import Enums.NivelCurso;
+import Utils.LeitorDeDados;
 
 public class CursoView {
 
     private CursoController cursoController;
+    private LeitorDeDados leitor = new LeitorDeDados();
 
     public CursoView(CursoController controller) {
         this.cursoController = controller;
@@ -43,17 +45,17 @@ public class CursoView {
     }
 
     public Curso listarCursoById() {
-        String nome = entraNome();
-        String nivel = entraNivel();
-        int ano = entraAno();
+        String nome = leitor.lerString("Entre com o nome do curso: ");
+        String nivel = leitor.lerString("Entre com o nível do curso: ");
+        int ano = leitor.lerInteiro("Entre com o ano do curso: ");
         return cursoController.getCursoById(nome + "_" + nivel + "_" + ano);
     }
 
     private Curso entrarCurso() {
         try {
-            String nome = entraNome();
-            String nivel = entraNivel();
-            int ano = entraAno();
+            String nome = leitor.lerString("Entre com o nome do curso: ");
+            NivelCurso nivel = NivelCurso.fromString(leitor.lerString("Entre com o nível do curso: "));
+            int ano = leitor.lerInteiro("Entre com o ano do curso: ");
 
             String id = nome + nivel + ano;
 
@@ -74,29 +76,7 @@ public class CursoView {
     }
 
     private List<Curso> listarCursosByAno() {
-        int ano = entraAno();
+        int ano = leitor.lerInteiro("Entre com o ano do curso: ");
         return cursoController.getCursoByAno(ano);
     }
-
-    private String entraNome() {
-        System.out.println("Entre com o nome do curso");
-        Scanner in = new Scanner(System.in);
-
-        String id = in.nextLine();
-
-        return id.trim();
-    }
-
-    private String entraNivel() {
-        System.out.println("Entre com o nivel do curso");
-        Scanner in = new Scanner(System.in);
-        return in.nextLine().trim();
-    }
-
-    private int entraAno() {
-        System.out.println("Entre com o ano do curso");
-        Scanner in = new Scanner(System.in);
-        return Integer.parseInt(in.nextLine().trim());
-    }
-
 }

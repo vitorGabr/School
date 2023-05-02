@@ -32,7 +32,7 @@ public class View {
         rendimentoController = new RendimentoController();
         acessoCursos = new AcessoCurso("files/cursos.csv", cursoController);
         acessoRendimento = new AcessoRendimento(new ArrayList<>(
-                Arrays.asList("files/ALPOO_GRADUACAO_2018.csv")),
+                Arrays.asList("files/LPOO_GRADUACAO_2018.csv")),
                 rendimentoController);
         acessoAlunos = new AcessoAluno("files/alunos.csv", alunoController);
         alunoView = new AlunoView(alunoController);

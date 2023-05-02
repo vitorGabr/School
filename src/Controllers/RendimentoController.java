@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class RendimentoController {
+
     private Map<String, List<Rendimento>> rendimentos = new TreeMap<>();
 
     public List<Rendimento> getRendimentosByAlunoId(String id) {

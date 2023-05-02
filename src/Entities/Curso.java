@@ -2,15 +2,16 @@ package Entities;
 
 import java.util.NoSuchElementException;
 
+import Enums.NivelCurso;
+
 public class Curso {
 
     private String id;
     private String nome;
-    private String nivel;
+    private NivelCurso nivel;
     private int ano;
 
-    public Curso(String _nome, String _nivel, int _ano) {
-        verificaNivel(_nivel);
+    public Curso(String _nome, NivelCurso _nivel, int _ano) {
         verificaAno(_ano);
         this.ano = _ano;
         this.nome = _nome;
@@ -30,7 +31,7 @@ public class Curso {
         this.nome = nome;
     }
 
-    public String getNivel() {
+    public NivelCurso getNivel() {
         return nivel;
     }
 
@@ -40,12 +41,6 @@ public class Curso {
 
     public void setAno(int ano) {
         this.ano = ano;
-    }
-
-    private void verificaNivel(String _nivel) {
-        if (!(_nivel.equals("GRADUACAO") || _nivel.equals("POS_GRADUACAO"))) {
-            throw new NoSuchElementException("Você precisa digitar um valor válido para o nível !!!");
-        }
     }
 
     private void verificaAno(int _ano) {

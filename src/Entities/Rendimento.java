@@ -1,6 +1,6 @@
 package Entities;
 
-import java.util.Arrays;
+import Enums.NivelCurso;
 
 public class Rendimento {
 
@@ -19,15 +19,15 @@ public class Rendimento {
             double _np1,
             double _np2,
             double _reposicao,
-            double _exame) {
+            double _exame,
+            NivelCurso _nivelCurso) {
         this.aluno_id = _aluno_id;
         this.curso_id = _curso_id;
         this.np1 = _np1;
         this.np2 = _np2;
         this.exame = _exame;
         this.reposicao = _reposicao;
-        this.media = 0;
-        this.aprovado = false;
+        this.calcMedia(_nivelCurso);
     }
 
     public double getMedia() {
@@ -78,15 +78,14 @@ public class Rendimento {
         this.reposicao = reposicao;
     }
 
-    public void calcMedia(Curso _curso) {
+    private void calcMedia(NivelCurso _nivel) {
         double repo = this.reposicao;
-        double[] nps = { this.np1, this.np2 };
-        double min = Arrays.stream(nps).min().getAsDouble();
+        double min = Math.min(this.np1, this.np1);
         if (repo > min) {
             this.reposicao = min;
         }
-        this.media = Arrays.stream(nps).sum() / nps.length;
-        this.aprovado = _curso.getNivel() == "GRADUAÇÃO" ? this.media >= 7 : this.media >= 5;
+        this.media = (this.np1 + this.np2) / 2;
+        this.aprovado = _nivel == NivelCurso.GRADUACAO ? this.media >= 7 : this.media >= 5;
         double finalMedia = (this.exame + this.media / 2);
         if (finalMedia > 5) {
             this.media = finalMedia;
@@ -98,5 +97,6 @@ public class Rendimento {
     public String toString() {
         return np1 + ";" + np2 + ";" + reposicao + ";" + exame;
     }
+
 
 }
