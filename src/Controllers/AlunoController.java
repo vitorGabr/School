@@ -16,7 +16,7 @@ public class AlunoController {
     }
 
     public boolean addAluno(Aluno aluno) {
-        System.out.println(aluno.getName());
+        System.out.println(aluno.getNome());
         if (alunos.containsKey(aluno.getId())) {
             return false;
         }
@@ -38,7 +38,7 @@ public class AlunoController {
         List<Aluno> alunosByName = new ArrayList<>();
 
         for (Aluno p : alunos.values()) {
-            if (p.getName().toLowerCase().contains(keyName.toLowerCase())) {
+            if (p.getNome().toLowerCase().contains(keyName.toLowerCase())) {
                 alunosByName.add(p);
             }
         }

@@ -3,32 +3,32 @@ package Entities;
 public class Aluno {
 
     private String id;
-    private String name;
+    private String nome;
 
-    public Aluno(String _id, String _name) {
+    public Aluno(String _id, String _nome) {
         this.id = _id;
-        this.name = _name;
+        this.nome = _nome;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
     public String toString() {
-        return id + ";" + name;
+        return id + ";" + nome;
     }
 
 }

@@ -67,7 +67,7 @@ public class RendimentoView {
             Aluno aluno = alunoController.getAlunoById(rendimento.getAlunoId());
 
             System.out.println("------------------");
-            System.out.println("ALUNO: " + aluno.getName());
+            System.out.println("ALUNO: " + aluno.getNome());
             System.out.println("------");
             System.out.println("STATUS: " + (rendimento.getAprovado() == true ? "PASSOU" : "NÃO PASSOU"));
             System.out.println("------");
