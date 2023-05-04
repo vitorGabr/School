@@ -1,10 +1,8 @@
 package Entities;
 
-import java.util.NoSuchElementException;
-
 import Enums.NivelCurso;
 
-public class Curso {
+public class Curso implements Output {
 
     private String id;
     private String nome;
@@ -52,6 +50,15 @@ public class Curso {
 
     @Override
     public String toString() {
+        String message = "\n";
+        message += "\n Nome: " + nome;
+        message += "\n Nível: " + nivel;
+        message += "\n Ano: " + ano;
+        return message;
+    }
+
+    @Override
+    public String saida() {
         return nome + ";" + nivel + ";" + ano;
     }
 

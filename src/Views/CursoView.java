@@ -23,15 +23,15 @@ public class CursoView {
             return;
         }
         if (cursoController.addCurso(curso)) {
-            System.out.println("Adicionando Curso " + curso);
+            System.out.println("\nAdicionando Curso " + curso);
         } else {
-            System.out.println("Já existe um curso cadastrado com esses valores: " + curso);
+            System.out.println("\nJá existe um curso cadastrado com esses valores: " + curso);
         }
 
     }
 
     public void listaTodosCursos() {
-        System.out.println("Listando todos os cursos");
+        System.out.println("\nListando todos os cursos");
         for (Curso p : cursoController.getCursos()) {
             System.out.println(p);
         }
@@ -45,23 +45,23 @@ public class CursoView {
     }
 
     public Curso listarCursoById() {
-        String nome = leitor.lerString("Entre com o nome do curso: ");
-        String nivel = leitor.lerString("Entre com o nível do curso: ");
-        int ano = leitor.lerInteiro("Entre com o ano do curso: ");
+        String nome = leitor.lerString("\nEntre com o nome do curso: ");
+        String nivel = leitor.lerString("\nEntre com o nível do curso: ");
+        int ano = leitor.lerInteiro("\nEntre com o ano do curso: ");
         return cursoController.getCursoById(nome + "_" + nivel + "_" + ano);
     }
 
     private Curso entrarCurso() {
         try {
-            String nome = leitor.lerString("Entre com o nome do curso: ");
-            NivelCurso nivel = NivelCurso.fromString(leitor.lerString("Entre com o nível do curso: "));
-            int ano = leitor.lerInteiro("Entre com o ano do curso: ");
+            String nome = leitor.lerString("\nEntre com o nome do curso: ");
+            NivelCurso nivel = NivelCurso.fromString(leitor.lerString("\nEntre com o nível do curso: "));
+            int ano = leitor.lerInteiro("\nEntre com o ano do curso: ");
 
             String id = nome + nivel + ano;
 
             Curso temCurso = cursoController.getCursoById(id);
             if (temCurso != null) {
-                System.out.println("Já temos um curso cadastrado !!!");
+                System.out.println("\nJá temos um curso cadastrado !!!");
                 System.out.println(temCurso);
                 return null;
             }
@@ -76,7 +76,7 @@ public class CursoView {
     }
 
     private List<Curso> listarCursosByAno() {
-        int ano = leitor.lerInteiro("Entre com o ano do curso: ");
+        int ano = leitor.lerInteiro("\nEntre com o ano do curso: ");
         return cursoController.getCursoByAno(ano);
     }
 }

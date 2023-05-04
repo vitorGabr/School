@@ -19,41 +19,41 @@ public class AlunoView {
             return;
         }
         if (alunoController.addAluno(aluno)) {
-            System.out.println("Adicionando Aluno " + aluno);
+            System.out.println("\nAdicionando Aluno " + aluno);
         } else {
-            System.out.println("Falha ao adicionar aluno " + aluno);
+            System.out.println("\nFalha ao adicionar aluno " + aluno);
         }
 
     }
 
     public void listaTodosAlunos() {
-        System.out.println("Listando todos os alunos");
+        System.out.println("\nListando todos os alunos");
         for (Aluno p : alunoController.getAlunos()) {
             System.out.println(p);
         }
     }
 
     public Aluno listarAlunoById() {
-        String id = leitor.lerString("Entre com o Id do aluno: ");
+        String id = leitor.lerString("\nEntre com o Id do aluno: ");
         Aluno temAluno = alunoController.getAlunoById(id);
         if (temAluno == null) {
-            System.out.println("Não temos nenhum aluno cadastrado com esse RA!!!");
+            System.out.println("\nNão temos nenhum aluno cadastrado com esse RA!!!");
             return null;
         }
         return temAluno;
     }
 
     private Aluno entrarAluno() {
-        String id = leitor.lerString("Entre com o Id do aluno: ");
+        String id = leitor.lerString("\nEntre com o Id do aluno: ");
 
         Aluno temAluno = alunoController.getAlunoById(id);
         if (temAluno != null) {
-            System.out.println("Já temos um aluno com este id:");
+            System.out.println("\nJá temos um aluno com este id:");
             System.out.println(temAluno);
             return null;
         }
 
-        String nome = leitor.lerString("Entre com o Nome do aluno: ");
+        String nome = leitor.lerString("\nEntre com o Nome do aluno: ");
         return new Aluno(id, nome);
     }
 

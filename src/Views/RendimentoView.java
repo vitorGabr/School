@@ -35,26 +35,26 @@ public class RendimentoView {
     }
 
     public void listarAlunoByRa() {
-        String _ra = leitor.lerString("Entre com o Ra do aluno");
+        String _ra = leitor.lerString("\nEntre com o Ra do aluno");
         if (this.alunoController.getAlunoById(_ra) == null) {
-            System.out.println("Não existe nenhum aluno cadastro com esse RA!!!");
+            System.out.println("\nNão existe nenhum aluno cadastro com esse RA!!!");
             return;
         }
-        System.out.println("Listando o aluno: ");
+        System.out.println("\nListando o aluno: ");
         System.out.println(_ra);
         mostrarStatusAluno(rendimentoController.getRendimentosByAlunoId(_ra));
     }
 
     public void listarRendimentosByCurso(Curso curso) {
-        System.out.println("Listando cada aluno que cursou essa matéria: ");
+        System.out.println("\nListando cada aluno que cursou essa matéria: ");
         mostrarStatusAluno(rendimentoController.getRendimentosByCursoId(curso.getId()));
     }
 
     private Rendimento entrarRendimento(String alunoRa, String cursoId) {
-        double np1 = leitor.lerDouble("Entre com a nota da NP1: ");
-        double np2 = leitor.lerDouble("Entre com a nota da NP2: ");
-        double exame = leitor.lerDouble("Entre com a nota do Exame: ");
-        double reposicao = leitor.lerDouble("Entre com a nota da Reposição: ");
+        double np1 = leitor.lerDouble("\nEntre com a nota da NP1: ");
+        double np2 = leitor.lerDouble("\nEntre com a nota da NP2: ");
+        double exame = leitor.lerDouble("\nEntre com a nota do Exame: ");
+        double reposicao = leitor.lerDouble("\nEntre com a nota da Reposição: ");
 
         Curso curso = this.cursoController.getCursoById(cursoId);
 

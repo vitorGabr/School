@@ -2,7 +2,7 @@ package Entities;
 
 import Enums.NivelCurso;
 
-public class Rendimento {
+public class Rendimento implements Output {
 
     private String aluno_id;
     private String curso_id;
@@ -95,8 +95,17 @@ public class Rendimento {
 
     @Override
     public String toString() {
-        return np1 + ";" + np2 + ";" + reposicao + ";" + exame;
+        String message = "\n";
+        message += "\n NP1: " + np1;
+        message += "\n NP2: " + np1;
+        message += "\n REPOSICAO: " + np1;
+        message += "\n EXAME: " + np1;
+        return message;
     }
 
+    @Override
+    public String saida() {
+        return np1 + ";" + np2 + ";" + reposicao + ";" + exame;
+    }
 
 }

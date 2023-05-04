@@ -12,12 +12,12 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import Entities.Output;
 
 public abstract class DAO {
     private List<String> filePath;
@@ -57,7 +57,11 @@ public abstract class DAO {
                     OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
                     PrintWriter pw = new PrintWriter(osw, true);) {
                 for (Object p : collection) {
-                    pw.println(p);
+                    if (p instanceof Output) {
+                        pw.println(((Output) p).saida());
+                    } else {
+                        pw.println(p);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

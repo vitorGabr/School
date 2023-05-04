@@ -1,6 +1,6 @@
 package Entities;
 
-public class Aluno {
+public class Aluno implements Output {
 
     private String id;
     private String nome;
@@ -28,6 +28,14 @@ public class Aluno {
 
     @Override
     public String toString() {
+        String message = "\n";
+        message += "\n ID: " + id;
+        message += "\n Nome: " + nome;
+        return message;
+    }
+
+    @Override
+    public String saida() {
         return id + ";" + nome;
     }
 
