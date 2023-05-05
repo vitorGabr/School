@@ -26,7 +26,11 @@ public abstract class DAO {
         this.filePath = aFilePath;
     }
 
-    protected Map<String, List<String>> load() {
+    public void setFilePath(List<String> _filePaths) {
+        this.filePath = _filePaths;
+    }
+
+    public Map<String, List<String>> load() {
         Map<String, List<String>> lines = new TreeMap<>();
         for (String path : this.filePath) {
             try (InputStream is = new FileInputStream(path);
@@ -51,7 +55,7 @@ public abstract class DAO {
 
     }
 
-    protected <T> void save(Collection<T> collection) {
+    public <T> void save(Collection<T> collection) {
         for (String path : this.filePath) {
             try (OutputStream os = new FileOutputStream(path/* , true */);
                     OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);

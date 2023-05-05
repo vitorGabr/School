@@ -21,7 +21,8 @@ public class AcessoRendimento extends DAO {
         this.rendiController = rendiController;
     }
 
-    public void loadRendimentos() {
+    public void loadRendimentos(List<String> paths) {
+        this.setFilePath(paths);
         Map<String, List<String>> palvrs = this.load();
         for (String key : palvrs.keySet()) {
             List<String> lista = palvrs.get(key);

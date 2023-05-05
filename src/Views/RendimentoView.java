@@ -35,7 +35,7 @@ public class RendimentoView {
     }
 
     public void listarAlunoByRa() {
-        String _ra = leitor.lerString("\nEntre com o Ra do aluno");
+        String _ra = entrarRa();
         if (this.alunoController.getAlunoById(_ra) == null) {
             System.out.println("\nNão existe nenhum aluno cadastro com esse RA!!!");
             return;
@@ -51,10 +51,10 @@ public class RendimentoView {
     }
 
     private Rendimento entrarRendimento(String alunoRa, String cursoId) {
-        double np1 = leitor.lerDouble("\nEntre com a nota da NP1: ");
-        double np2 = leitor.lerDouble("\nEntre com a nota da NP2: ");
-        double exame = leitor.lerDouble("\nEntre com a nota do Exame: ");
-        double reposicao = leitor.lerDouble("\nEntre com a nota da Reposição: ");
+        double np1 = entrarNp1();
+        double np2 = entrarNp2();
+        double exame = entrarExame();
+        double reposicao = entrarReposicao();
 
         Curso curso = this.cursoController.getCursoById(cursoId);
 
@@ -62,11 +62,16 @@ public class RendimentoView {
     }
 
     private void mostrarStatusAluno(List<Rendimento> rendimentos) {
+        double sumMedia = 0;
         for (Rendimento rendimento : rendimentos) {
+            sumMedia += rendimento.getMedia();
 
             Aluno aluno = alunoController.getAlunoById(rendimento.getAlunoId());
+            Curso curso = cursoController.getCursoById(rendimento.getCursoId());
 
             System.out.println("------------------");
+            System.out.println("MATÉRIA: " + curso.getNome());
+            System.out.println("------");
             System.out.println("ALUNO: " + aluno.getNome());
             System.out.println("------");
             System.out.println("STATUS: " + (rendimento.getAprovado() == true ? "PASSOU" : "NÃO PASSOU"));
@@ -74,6 +79,29 @@ public class RendimentoView {
             System.out.println("MÉDIA: " + rendimento.getMedia());
             System.out.println("------------------");
         }
+        System.out.println("\nMÉDIA TOTAL: " + (sumMedia / rendimentos.size()));
+        System.out.println("------------------");
+
+    }
+
+    private String entrarRa() {
+        return leitor.lerString("\nEntre com o Ra do aluno: ");
+    }
+
+    private Double entrarNp1() {
+        return leitor.lerDouble("\nEntre com a nota da NP1: ");
+    }
+
+    private Double entrarNp2() {
+        return leitor.lerDouble("\nEntre com a nota da NP2: ");
+    }
+
+    private Double entrarExame() {
+        return leitor.lerDouble("\nEntre com a nota do Exame: ");
+    }
+
+    private Double entrarReposicao() {
+        return leitor.lerDouble("\nEntre com a nota da Reposição: ");
     }
 
 }

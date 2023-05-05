@@ -1,7 +1,7 @@
 package Views;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import Controllers.AlunoController;
@@ -31,10 +31,8 @@ public class View {
         cursoController = new CursoController();
         rendimentoController = new RendimentoController();
         acessoCursos = new AcessoCurso("files/cursos.csv", cursoController);
-        acessoRendimento = new AcessoRendimento(new ArrayList<>(
-                Arrays.asList("files/LPOO_GRADUACAO_2018.csv")),
-                rendimentoController);
         acessoAlunos = new AcessoAluno("files/alunos.csv", alunoController);
+        acessoRendimento = new AcessoRendimento(new ArrayList<>(), rendimentoController);
         alunoView = new AlunoView(alunoController);
         cursoView = new CursoView(cursoController);
         rendimentoView = new RendimentoView(rendimentoController, alunoController, cursoController);
@@ -43,7 +41,11 @@ public class View {
     public void init() {
         acessoAlunos.loadAluno();
         acessoCursos.loadCurso();
-        acessoRendimento.loadRendimentos();
+        List<String> rendimentosPath = new ArrayList<>();
+        for (Curso curso : cursoController.getCursos()) {
+            rendimentosPath.add("files/" + curso.getId() + ".csv");
+        }
+        acessoRendimento.loadRendimentos(rendimentosPath);
         options();
     }
 
