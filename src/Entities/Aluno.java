@@ -1,5 +1,7 @@
 package Entities;
 
+import Interfaces.Output;
+
 public class Aluno implements Output {
 
     private String id;

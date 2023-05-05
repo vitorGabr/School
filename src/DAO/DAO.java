@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import Entities.Output;
+import Interfaces.Output;
 
 public abstract class DAO {
     private List<String> filePath;

@@ -1,6 +1,7 @@
 package Entities;
 
 import Enums.NivelCurso;
+import Interfaces.Output;
 
 public class Rendimento implements Output {
 

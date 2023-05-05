@@ -23,7 +23,6 @@ public class AlunoView {
         } else {
             System.out.println("\nFalha ao adicionar aluno " + aluno);
         }
-
     }
 
     public void listaTodosAlunos() {
