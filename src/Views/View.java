@@ -2,7 +2,6 @@ package Views;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import Controllers.AlunoController;
 import Controllers.CursoController;
@@ -12,6 +11,7 @@ import DAO.AcessoCurso;
 import DAO.AcessoRendimento;
 import Entities.Aluno;
 import Entities.Curso;
+import Utils.LeitorDeDados;
 
 public class View {
 
@@ -25,6 +25,8 @@ public class View {
     private AlunoView alunoView;
     private CursoView cursoView;
     private RendimentoView rendimentoView;
+
+    private LeitorDeDados leitor = new LeitorDeDados();
 
     public View() {
         alunoController = new AlunoController();
@@ -103,16 +105,7 @@ public class View {
         System.out.println("--------------------------------");
         System.out.println();
 
-        Scanner in = new Scanner(System.in);
-        String linha = in.nextLine();
-
-        try {
-            return Integer.parseInt(linha);
-        } catch (NumberFormatException e) {
-            System.out.println("O valor entrado : " + linha + " nao eh valido");
-            System.out.println("   a opcao deve ser um numero inteiro\n");
-            return getOpcao();
-        }
+        return leitor.lerInteiro("");
 
     }
 
